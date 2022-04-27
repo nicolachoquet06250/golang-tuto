@@ -23,3 +23,4 @@ jobs:
 
     - name: Build Linux
       run: "[ ! -d \"./dist\" ] && mkdir ./dist;GOOS=linux GOARCH=amd64 go build -v -o ./dist/go_build_main_go___Linux ./main.go"
+
