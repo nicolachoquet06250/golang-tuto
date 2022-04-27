@@ -44,10 +44,23 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v2
       - name: Generate build files
-        uses: thatisuday/go-cross-build@v1
-        with:
-          platforms: 'linux/amd64, darwin/amd64, windows/amd64'
-          package: 'golang-tuto'
-          name: 'program'
-          compress: 'false'
-          dest: 'dist'
+        run:
+          "[ ! -d \"./dist\" ] && mkdir ./dist;GOOS=windows GOARCH=amd64 go build -v -o ./dist/go_build_main_go___Windows.exe ./main.go"
+          "mkdir ./dist;GOOS=linux GOARCH=amd64 go build -v -o ./dist/go_build_main_go___Linux ./main.go"
+          "mkdir ./dist;GOOS=darwin GOARCH=amd64 go build -v -o ./dist/go_build_main_go___MacOS.dmg ./main.go"
+      - name: Post generate files
+        run:
+          "/usr/bin/git config --global --add safe.directory /home/runner/work/golang-tuto/golang-tuto"
+          "/usr/bin/git config --local --name-only --get-regexp core\.sshCommand"
+          "/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+          "/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader"
+          "/usr/bin/git config --local --unset-all http.https://github.com/.extraheader"
+          "/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+
+        #uses: thatisuday/go-cross-build@v1
+        #with:
+        #  platforms: 'linux/amd64, darwin/amd64, windows/amd64'
+        #  package: 'golang-tuto'
+        #  name: 'program'
+        #  compress: 'false'
+        #  dest: 'dist'
