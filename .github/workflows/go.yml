@@ -1,0 +1,25 @@
+name: Go
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.18
+
+    - name: Build Windows
+      run: mkdir ./dist && GOOS=windows GOARCH=amd64 go build -v -o ./dist/go_build_main_go___Windows.exe ./main.go
+
+    - name: Build Linux
+      run: mkdir ./dist && GOOS=linux GOARCH=amd64 go build -v -o ./dist/go_build_main_go___Linux ./main.go
