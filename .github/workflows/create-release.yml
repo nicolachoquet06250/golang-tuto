@@ -28,6 +28,15 @@ jobs:
           draft: false
           prerelease: false
 
+  create_dist:
+    name: Create dist directory
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create directory
+        run: mkdir ./dist
+
   generate:
     name: Generate cross-platform builds
     runs-on: ubuntu-latest
