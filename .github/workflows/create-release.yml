@@ -57,6 +57,7 @@ jobs:
           "/usr/bin/git config --local --unset-all http.https://github.com/.extraheader"
           "/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
 
+
         #uses: thatisuday/go-cross-build@v1
         #with:
         #  platforms: 'linux/amd64, darwin/amd64, windows/amd64'
